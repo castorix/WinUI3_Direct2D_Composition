@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "WinUI3_Direct2D_Composition (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinUI3_Direct2D_Composition (Unpackaged)": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
