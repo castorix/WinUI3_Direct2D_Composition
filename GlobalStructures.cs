@@ -215,6 +215,7 @@ namespace GlobalStructures
         [DllImport("User32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern uint GetDpiForWindow(IntPtr hwnd);
 
+
         public const long DELETE = (0x00010000L);
         public const long READ_CONTROL = (0x00020000L);
         public const long WRITE_DAC = (0x00040000L);
