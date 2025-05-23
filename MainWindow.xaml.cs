@@ -184,8 +184,8 @@ namespace WinUI3_Direct2D_Composition
                 m_SpriteVisual.Offset = new System.Numerics.Vector3(0, 0, 0);
                 var root = Microsoft.UI.Xaml.Hosting.ElementCompositionPreview.GetElementVisual(this.Content) as Microsoft.UI.Composition.ContainerVisual;
                 Microsoft.UI.Composition.VisualCollection vsChildren = root.Children;
-                //children.InsertAtBottom(m_SpriteVisual);
-                vsChildren.InsertAtTop(m_SpriteVisual);
+                //vsChildren.InsertAtBottom(m_SpriteVisual);
+                vsChildren.InsertAtTop(m_SpriteVisual);          
 
                 //drawingSurface.Dispose();
                 //cgd.Dispose();
@@ -264,11 +264,11 @@ namespace WinUI3_Direct2D_Composition
                     pD2DDeviceContext3.SetTransform(Matrix3x2F.Translation(pUpdateOffset.x, pUpdateOffset.y));
                    
                     // Weird size... (bigger than client area)
-                    D2D1_SIZE_F size = pD2DDeviceContext.GetSize();
+                    pD2DDeviceContext.GetSize(out D2D1_SIZE_F size);
 
                     pD2DDeviceContext3.Clear(new ColorF(ColorF.Enum.Red, 0.0f));
 
-                    var nOldAntialiasMode = pD2DDeviceContext3.GetAntialiasMode();
+                    pD2DDeviceContext3.GetAntialiasMode(out D2D1_ANTIALIAS_MODE nOldAntialiasMode);
                     pD2DDeviceContext3.SetAntialiasMode(D2D1_ANTIALIAS_MODE.D2D1_ANTIALIAS_MODE_ALIASED);
 
                     foreach (CSprite s in CSprites)
@@ -508,8 +508,8 @@ namespace WinUI3_Direct2D_Composition
                 s.StartTime = stopWatch.ElapsedMilliseconds;
                 s.Tag = sTag;
                 CSprites.Add(s);
-
-                D2D1_SIZE_F bmpSize = pBitmap.GetSize();
+                
+                pBitmap.GetSize(out D2D1_SIZE_F bmpSize);
                 float nWidth = bmpSize.width / nXSprite;
                 float nHeight = bmpSize.width / nYSprite;
                 if (scale._11 != 0)

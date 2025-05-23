@@ -88,7 +88,7 @@ namespace WinUI3_Direct2D_Composition
             m_nNbImagesY = nNbImagesY;
             m_nNbImages = (nNbImages == 0) ? m_nNbImagesX * m_nNbImagesY : nNbImages;
             hr = pDC.CreateSpriteBatch(out m_pSpriteBatch);
-            D2D1_SIZE_F bmpSize = pBitmap.GetSize();
+            pBitmap.GetSize(out D2D1_SIZE_F bmpSize);
 
             // Only first pRectDest used in the test...
             m_pRectSource = new D2D1_RECT_U[m_nNbImagesX * m_nNbImagesY];
@@ -145,8 +145,16 @@ namespace WinUI3_Direct2D_Composition
         public void Move(D2D1_SIZE_F nClientSize, ID2D1DeviceContext3 pDC, HORIZONTALFLIP nHorizontalFlip, BOUNCE nBounce)
         {
             HRESULT hr = HRESULT.S_OK;
-            D2D1_SIZE_F size = (!nClientSize.Equals(default(D2D1_SIZE_F))) ? nClientSize:pDC.GetSize();
-            D2D1_SIZE_F bmpSize = m_pBitmap.GetSize();
+            D2D1_SIZE_F size;
+            if (!nClientSize.Equals(default(D2D1_SIZE_F)))
+            {
+                size = nClientSize;
+            }
+            else
+            {
+                pDC.GetSize(out size);
+            }
+            m_pBitmap.GetSize(out D2D1_SIZE_F bmpSize);
 
             float nWidth = bmpSize.width / m_nNbImagesX;
             float nHeight = bmpSize.height / m_nNbImagesY;
